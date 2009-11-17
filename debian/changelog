@@ -1,0 +1,57 @@
+eventlet (0.8.10) unstable; urgency=low
+
+  * based on changeset 628
+    http://devel.ag-projects.com/~denis/cgi-bin/hgweb.cgi/log/35dd8ff9bb2d
+  * reimplemented coros.BoundedSemaphore using two Semaphores;
+    queue(0) should work well as a channel replacement now
+  * added 'balance' property to coros.BoundedSemaphore, similar to that of channel's
+  * added connDone parameter to twistedutil.protocol.GreenTransportBase.loseConnection()
+  * renamed 'sync' argument to 'wait' in write() and loseConnection() methods
+    of twistedutil.protocol.GreenTransportBase
+  * fixed proc.__all__ to include Source class
+  * proc: changed the way links to functions are fired: now Source/Proc instance
+    passes itself as a parameter both for "value" and "exception" links.
+  * added 'value' property to Source and exc_info() method to access the result and the exception
+  * added has_value() and has_exception() to Source
+  * added docstring for proc.wrap_errors helper
+  * added proc.RunningProcSet class
+  * added eventlet.__version__ attribute
+
+ -- Denis Bilenko <denis@ag-projects.com>  Mon, 13 Apr 2009 16:17:24 +0700
+
+eventlet (0.8.9-2) unstable; urgency=low
+
+  * based on changeset 617
+    http://devel.ag-projects.com/~denis/cgi-bin/hgweb.cgi/log/ff7d739faa57
+  * Reverted half-closability feature of twitedutil.GreenTransports
+  * Fixed GreenTransportBase.resumeProducer not to hide twisted assertions
+  * Added proc.wrap_errors class as a better version of trap_errors function
+  * Improved docstring in proc module
+
+ -- Denis Bilenko <denis@ag-projects.com>  Sun, 01 Mar 2009 11:42:37 +0100
+
+eventlet (0.8.9-1) unstable; urgency=low
+
+  * based on changeset 612
+    http://devel.ag-projects.com/~denis/cgi-bin/hgweb.cgi/rev/7e46595f2c6f
+  * GreenTransportBase: implemented loseWriteConnection() and write() that
+    blocks until data is sent.
+  * GreenTransportBase: fixed loseConnection to call unregisterProducer
+  * GreenTransportBase: fixed __getattr__
+  * GreenTransportBase: added waitall() method to SpawnFactory
+  * Fixed setup.py not to install greentest as a package system-wide
+  * Added MANIFEST.in
+  * Added __len__ to coros.queue
+  * proc: added trap_errors function
+  * proc: added Waiter class. changed Source to use it instead of coros.event
+  * Fixed coros.Semaphore.acquire(), it could break Semaphore's invariant
+  * Updated examples to use current API.
+
+ -- Denis Bilenko <denis@ag-projects.com>  Thu, 12 Feb 2009 09:37:59 +0100
+
+eventlet (0.8.9) unstable; urgency=low
+
+  * first release, based on chageset 599
+    http://devel.ag-projects.com/~denis/cgi-bin/hgweb.cgi/log/5ab8daf62547
+
+ -- Denis Bilenko <denis@ag-projects.com>  Mon, 26 Jan 2009 19:23:17 +0600

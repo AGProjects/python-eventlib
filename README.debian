@@ -1,0 +1,53 @@
+
+Prerequisites
+-------------
+
+Install Debian development tools
+
+sudo apt-get install build-essential dpkg-dev fakeroot devscripts \
+python-setuptools darcs
+
+
+Obtain Eventlet source code
+---------------------------
+
+The source code is now available at http://pypi.python.org/pypi/eventlet/
+
+Example for eventlet version 0.8.15:
+
+wget http://pypi.python.org/packages/source/e/eventlet/eventlet-0.8.15.tar.gz
+tar zxvf eventlet-0.8.15.tar.gz
+
+The folder eventlet-0.8.15  has been created.
+
+
+Obtain Debian control files
+---------------------------
+
+Obtain the archive using darcs version control tool:
+
+darcs get http://devel.ag-projects.com/repositories/python-eventlet
+
+Copy the debian control files from python-eventlet to eventlet-0.8.15:
+
+cp -r python-eventlet/* eventlet-0.8.15/
+
+Add a changelog entry for the Eventlet version number:
+
+cd eventlet-0.8.15
+dch -i
+
+
+Build the debian package
+------------------------
+
+python setup.py sdist
+cd dist
+tar zxvf python-eventlet-X.Y.Z.tar.gz
+cd python-eventlet-X.Y.Z
+debuild
+
+
+python-eventlet_X.Y.Z .deb package has been created in the upper directory
+and it can be installed with 'dpkg -i' command.
+
