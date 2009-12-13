@@ -1,10 +1,10 @@
-Source: eventlet
+Source: python-eventlet
 Section: python
 Priority: optional
-Maintainer: Denis Bilenko <denis@ag-projects.com>
-Uploaders: Adrian Georgescu <ag@ag-projects.com>
+Maintainer: Dan Pascu <dan@ag-projects.com>
+Uploaders: Adrian Georgescu <ag@ag-projects.com>, Luci Stanescu <luci@ag-projects.com>
 Build-Depends: cdbs (>= 0.4.47), debhelper (>= 5.0.42), python-all-dev (>= 2.5.2), python-support
-Standards-Version: 3.8.0
+Standards-Version: 3.8.3
 
 Package: python-eventlet
 Architecture: all
