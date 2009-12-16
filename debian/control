@@ -8,7 +8,7 @@ Standards-Version: 3.8.3
 
 Package: python-eventlet
 Architecture: all
-Depends: ${python:Depends}, python-codespeak-lib
+Depends: ${python:Depends}
 Description: Eventlet is a networking library written in Python.
  It achieves high scalability by using non-blocking I/O while at the
  same time retaining high programmer usability by using coroutines to
