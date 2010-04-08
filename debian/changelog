@@ -1,6 +1,9 @@
 python-eventlet-0.8 (0.8.11-1) unstable; urgency=low
 
   * Renamed package to python-eventlet-0.8
+  * Added Saul Ibarra to uploaders
+  * Conflic with package python-eventlet
+  * Dependency with package python-greenlet
 
  -- Saul Ibarra <saul@ag-projects.com>  Thu, 08 Apr 2010 18:28:01 +0200
 
