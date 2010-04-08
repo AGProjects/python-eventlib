@@ -1,4 +1,4 @@
-Source: python-eventlet
+Source: python-eventlet-0.8
 Section: python
 Priority: optional
 Maintainer: Dan Pascu <dan@ag-projects.com>
@@ -6,7 +6,7 @@ Uploaders: Adrian Georgescu <ag@ag-projects.com>, Luci Stanescu <luci@ag-project
 Build-Depends: cdbs (>= 0.4.47), debhelper (>= 5.0.42), python-all-dev (>= 2.5.2), python-support
 Standards-Version: 3.8.4
 
-Package: python-eventlet
+Package: python-eventlet-0.8
 Architecture: all
 Depends: ${python:Depends}
 Description: Eventlet is a networking library written in Python.

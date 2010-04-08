@@ -6,7 +6,7 @@ from eventlet import __version__
 
 
 setup(
-    name='python-eventlet',
+    name='python-eventlet-0.8',
     version=__version__,
     description='Coroutine-based networking library',
     author='Linden Lab',
