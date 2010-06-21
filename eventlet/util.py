@@ -24,6 +24,7 @@ import os
 import select
 import socket
 import errno
+import sys
 
 try:
     from OpenSSL import SSL
@@ -62,7 +63,8 @@ def g_log(*args):
 __original_socket__ = socket.socket
 __original_gethostbyname__ = socket.gethostbyname
 __original_getaddrinfo__ = socket.getaddrinfo
-__original_fromfd__ = socket.fromfd
+if sys.platform != 'win32':
+    __original_fromfd__ = socket.fromfd
 
 def tcp_socket():
     s = __original_socket__(socket.AF_INET, socket.SOCK_STREAM)
@@ -116,10 +118,11 @@ def wrap_socket_with_coroutine_socket(use_thread_pool=True):
                 __original_getaddrinfo__, *args, **kw)
         socket.getaddrinfo = new_getaddrinfo
 
-    def new_fromfd(*args, **kw):
-        from eventlet import greenio
-        return greenio.GreenSocket(__original_fromfd__(*args, **kw))
-    socket.fromfd = new_fromfd
+    if sys.platform != 'win32':
+        def new_fromfd(*args, **kw):
+            from eventlet import greenio
+            return greenio.GreenSocket(__original_fromfd__(*args, **kw))
+        socket.fromfd = new_fromfd
 
     socket_already_wrapped = True
 
@@ -128,7 +131,8 @@ __original_fdopen__ = os.fdopen
 __original_read__ = os.read
 __original_write__ = os.write
 __original_waitpid__ = os.waitpid
-__original_fork__ = os.fork
+if sys.platform != 'win32':
+    __original_fork__ = os.fork
 ## TODO wrappings for popen functions? not really needed since Process object exists?
 
 
@@ -155,11 +159,13 @@ def wrap_pipes_with_coroutine_pipes():
         from eventlet import api
         api.trampoline(fd, write=True)
         return __original_write__(fd, *args, **kw)
-    def new_fork(*args, **kwargs):
-        pid = __original_fork__()
-        if pid:
-            processes._add_child_pid(pid)
-        return pid
+    if sys.platform != 'win32':
+        def new_fork(*args, **kwargs):
+            pid = __original_fork__()
+            if pid:
+                processes._add_child_pid(pid)
+            return pid
+        os.fork = new_fork
     def new_waitpid(pid, options):
         from eventlet import processes
         evt = processes.CHILD_EVENTS.get(pid)
@@ -175,7 +181,6 @@ def wrap_pipes_with_coroutine_pipes():
     os.fdopen = new_fdopen
     os.read = new_read
     os.write = new_write
-    os.fork = new_fork
     os.waitpid = new_waitpid
 
 __original_select__ = select.select
