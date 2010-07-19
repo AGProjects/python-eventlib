@@ -555,8 +555,24 @@ class GreenSSL(GreenSocket):
         if refcount is None:
             self._refcount = RefCount()
 
-    read = read
-    
+    def read(self, buflen=1024):
+        try:
+            return self.sock.recv(buflen)
+        except socket.error, e:
+            if e[0] == errno.EWOULDBLOCK:
+                return None
+            if e[0] in SOCKET_CLOSED:
+                return ''
+            raise
+        except util.SSL.WantReadError:
+            return None
+        except util.SSL.ZeroReturnError:
+            return ''
+        except util.SSL.SysCallError, e:
+            if e[0] == -1 or e[0] > 0:
+                return ''
+            raise
+
     def sendall(self, data):
         # overriding sendall because ssl sockets behave badly when asked to 
         # send empty strings; 'normal' sockets don't have a problem
