@@ -26,6 +26,7 @@ BUFFER_SIZE = 4096
 
 import errno
 import os
+import sys
 import socket
 from socket import socket as _original_socket
 import time
@@ -81,8 +82,10 @@ def higher_order_send(send_func):
         return count
     return send
 
-
-CONNECT_ERR = (errno.EINPROGRESS, errno.EALREADY, errno.EWOULDBLOCK)
+if sys.platform == 'win32':
+    CONNECT_ERR = (errno.EINPROGRESS, errno.EALREADY, errno.EWOULDBLOCK, errno.WSAEINVAL)
+else:
+    CONNECT_ERR = (errno.EINPROGRESS, errno.EALREADY, errno.EWOULDBLOCK)
 CONNECT_SUCCESS = (0, errno.EISCONN)
 def socket_connect(descriptor, address):
     err = descriptor.connect_ex(address)
