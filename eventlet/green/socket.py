@@ -80,3 +80,6 @@ def ssl(sock, certificate=None, private_key=None):
     connection = SSL.Connection(context, sock)
     connection.set_connect_state()
     return _GreenSSL(connection)
+
+sslerror = __socket.sslerror
+
