@@ -1,3 +1,16 @@
+python-eventlet-0.8 (0.8.11.2) unstable; urgency=low
+
+  * Updated debian package description
+  * Fixed version number for native package
+  * Don't use socket.fromfd and os.fork in Windows as they are not available
+  * Added missing sslerror attribute to socket
+  * Added timeout attributes to HTTP/HTTPS connection classes
+  * Fixed reading from a GreenSSL socket
+  * Capture WSAEINVAL error when connecting sockets in Windows
+  * Raised Standards-Version to 3.9.0
+
+ -- Saul Ibarra <saul@ag-projects.com>  Wed, 28 Jul 2010 09:46:39 +0200
+
 python-eventlet-0.8 (0.8.11.1) unstable; urgency=low
 
   * Renamed package to python-eventlet-0.8
