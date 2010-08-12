@@ -1,3 +1,10 @@
+python-eventlet-0.8 (0.8.11.3) unstable; urgency=low
+
+  * Added python-openssl dependency
+  * Raised Standards-Version to 3.9.1
+
+ -- Saul Ibarra <saul@ag-projects.com>  Thu, 12 Aug 2010 17:32:46 +0200
+
 python-eventlet-0.8 (0.8.11.2) unstable; urgency=low
 
   * Updated debian package description
