@@ -25,10 +25,24 @@ def _gethostbyname_tpool(name):
     return tpool.execute(
         __socket.gethostbyname, name)
 
-#     def getaddrinfo(*args, **kw):
-#         return tpool.execute(
-#             __socket.getaddrinfo, *args, **kw)
-# 
+def getaddrinfo(*args, **kw):
+    if getattr(get_hub(), 'uses_twisted_reactor', None):
+        globals()['getaddrinfo'] = _getaddrinfo_twisted
+    else:
+        globals()['getaddrinfo'] = _getaddrinfo_tpool
+    return globals()['getaddrinfo'](*args, **kw)
+
+def _getaddrinfo_twisted(*args, **kw):
+    from twisted.internet.threads import deferToThread
+    from eventlet.twistedutil import block_on as _block_on
+    return _block_on(deferToThread(__socket.getaddrinfo, *args, **kw))
+
+def _getaddrinfo_tpool(*args, **kw):
+    from eventlet import tpool
+    return tpool.execute(
+        __socket.getaddrinfo, *args, **kw)
+
+
 # XXX there're few more blocking functions in socket
 # XXX having a hub-independent way to access thread pool would be nice
 
