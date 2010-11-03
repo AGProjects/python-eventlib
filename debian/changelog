@@ -1,3 +1,9 @@
+python-eventlet-0.8 (0.8.11.4) unstable; urgency=low
+
+  * Fixed socket.getaddrinfo to be non-blocking
+
+ -- Saul Ibarra <saul@ag-projects.com>  Wed, 03 Nov 2010 11:49:43 +0100
+
 python-eventlet-0.8 (0.8.11.3) unstable; urgency=low
 
   * Added python-openssl dependency
