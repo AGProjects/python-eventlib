@@ -7,8 +7,6 @@ from eventlet.api import get_hub
 from eventlet.greenio import GreenSocket as socket, GreenSSL as _GreenSSL
 from eventlet.greenio import socketpair, fromfd
 
-def fromfd(*args):
-    return socket(__socket.fromfd(*args))
 
 def gethostbyname(name):
     if getattr(get_hub(), 'uses_twisted_reactor', None):
