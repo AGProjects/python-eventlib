@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 
-
-from setuptools import find_packages, setup
+import os
+from distutils.core import setup
 from eventlet import __version__
 
+def find_packages(toplevel):
+    return [directory.replace('/', '.') for directory, subdirs, files in os.walk(toplevel) if '__init__.py' in files]
 
 setup(
     name='python-eventlet-0.8',
@@ -12,7 +14,7 @@ setup(
     author='Linden Lab',
     author_email='eventletdev@lists.secondlife.com',
     url='http://wiki.secondlife.com/wiki/Eventlet',
-    packages=find_packages(exclude=['greentest']),
+    packages=find_packages('eventlet'),
     long_description="""
     Eventlet is a networking library written in Python. It achieves
     high scalability by using non-blocking io while at the same time
