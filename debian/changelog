@@ -1,3 +1,9 @@
+python-eventlet-0.8 (0.8.11.5) unstable; urgency=low
+
+  * Wake up reactor instead of raising exception to avoid printing a traceback
+
+ -- Saul Ibarra <saul@ag-projects.com>  Mon, 13 Dec 2010 11:44:28 +0100
+
 python-eventlet-0.8 (0.8.11.4) unstable; urgency=low
 
   * Fixed socket.getaddrinfo to be non-blocking
