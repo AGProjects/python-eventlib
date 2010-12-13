@@ -5,7 +5,7 @@ from distutils.core import setup
 from eventlet import __version__
 
 def find_packages(toplevel):
-    return [directory.replace('/', '.') for directory, subdirs, files in os.walk(toplevel) if '__init__.py' in files]
+    return [directory.replace(os.path.sep, '.') for directory, subdirs, files in os.walk(toplevel) if '__init__.py' in files]
 
 setup(name='python-eventlet-0.8',
       version=__version__,
