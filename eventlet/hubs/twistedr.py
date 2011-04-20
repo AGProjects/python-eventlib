@@ -21,6 +21,7 @@
 
 import sys
 import threading
+import weakref
 from twisted.internet.base import DelayedCall as TwistedDelayedCall
 from eventlet import api
 
@@ -154,10 +155,12 @@ class BaseTwistedHub(object):
     def schedule_call_local(self, seconds, func, *args, **kwargs):
         from twisted.internet import reactor
         def call_if_greenlet_alive(*args1, **kwargs1):
-            if timer.greenlet.dead:
+            timer = timer_ref()
+            if timer is None or timer.greenlet.dead:
                 return
             return func(*args1, **kwargs1)
         timer = callLater(LocalDelayedCall, reactor, seconds, call_if_greenlet_alive, *args, **kwargs)
+        timer_ref = weakref.ref(timer)
         return timer
 
     schedule_call = schedule_call_local
