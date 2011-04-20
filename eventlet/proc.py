@@ -569,6 +569,9 @@ class Proc(Source):
         """
         try:
             result = function(*args, **kwargs)
+        except api.GreenletExit, e:
+            self.send_exception(e)
+            raise
         except:
             self.send_exception(*sys.exc_info())
             raise # let mainloop log the exception
