@@ -135,9 +135,9 @@ class GreenTransportBase(object):
         else:
             self.transport.write(data)
 
-    def loseConnection(self, connDone=failure.Failure(main.CONNECTION_DONE), wait=True):
+    def loseConnection(self, wait=True):
         self.transport.unregisterProducer()
-        self.transport.loseConnection(connDone)
+        self.transport.loseConnection()
         if wait:
             self._disconnected_event.wait()
 
