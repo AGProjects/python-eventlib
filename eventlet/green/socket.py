@@ -47,7 +47,7 @@ def _getaddrinfo_tpool(*args, **kw):
 # XXX having a hub-independent way to access thread pool would be nice
 
 
-_GLOBAL_DEFAULT_TIMEOUT = object()
+_GLOBAL_DEFAULT_TIMEOUT = __socket._GLOBAL_DEFAULT_TIMEOUT
 
 def create_connection(address, timeout=_GLOBAL_DEFAULT_TIMEOUT):
     """Connect to *address* and return the socket object.
