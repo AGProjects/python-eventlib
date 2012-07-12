@@ -1,3 +1,12 @@
+python-eventlet-0.8 (0.8.11.8) unstable; urgency=low
+
+  * Adapted to changes in latest Twisted
+  * Preserve _GLOBAL_DEFAULT_TIMEOUT from the original socket module
+  * Do not ignore the timeout argument for http connections
+  * Bumped debian standards version to 3.9.3
+
+ -- Dan Pascu <dan@ag-projects.com>  Thu, 12 Jul 2012 22:05:46 +0300
+
 python-eventlet-0.8 (0.8.11.7) unstable; urgency=low
 
   * Bumped debian standards version to 3.9.2
