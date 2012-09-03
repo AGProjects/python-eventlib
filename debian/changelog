@@ -1,3 +1,9 @@
+python-eventlib (0.1.0) UNRELEASED; urgency=low
+
+  * Renamed package to eventlib
+
+ -- Saul Ibarra <saul@ag-projects.com>  Mon, 03 Sep 2012 14:28:15 +0200
+
 python-eventlet-0.8 (0.8.11.8) unstable; urgency=low
 
   * Adapted to changes in latest Twisted
