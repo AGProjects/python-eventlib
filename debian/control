@@ -1,4 +1,4 @@
-Source: python-eventlet-0.8
+Source: python-eventlib
 Section: python
 Priority: optional
 Maintainer: Dan Pascu <dan@ag-projects.com>
@@ -6,11 +6,11 @@ Uploaders: Adrian Georgescu <ag@ag-projects.com>, Luci Stanescu <luci@ag-project
 Build-Depends: debhelper (>= 7.3.5), python-all (>= 2.5.2)
 Standards-Version: 3.9.3
 
-Package: python-eventlet-0.8
+Package: python-eventlib
 Architecture: all
 Depends: ${python:Depends}, ${misc:Depends}, python-greenlet, python-openssl
 Conflicts: python-eventlet
-Description: Eventlet is a networking library written in Python.
+Description: Eventlib is a networking library written in Python.
  It achieves high scalability by using non-blocking I/O while at the same
  time retaining high programmer usability by using coroutines to make the
  non-blocking io operations appear blocking at the source code level.
