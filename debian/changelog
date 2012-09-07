@@ -1,8 +1,8 @@
-python-eventlib (0.1.0) UNRELEASED; urgency=low
+python-eventlib (0.1.0) unstable; urgency=low
 
   * Renamed package to eventlib
 
- -- Saul Ibarra <saul@ag-projects.com>  Mon, 03 Sep 2012 14:28:15 +0200
+ -- Saul Ibarra <saul@ag-projects.com>  Fri, 07 Sep 2012 10:25:23 +0200
 
 python-eventlet-0.8 (0.8.11.8) unstable; urgency=low
 
