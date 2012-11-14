@@ -115,6 +115,7 @@ def socket_send(descriptor, data):
     except util.SSL.WantWriteError:
         return 0
     except util.SSL.WantReadError:
+        trampoline(descriptor.fileno(), read=True)
         return 0
 
 # winsock sometimes throws ENOTCONN
