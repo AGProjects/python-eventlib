@@ -305,6 +305,7 @@ class GreenTransport(GreenTransportBase):
 
 
 class GreenInstanceFactory(ClientFactory):
+    noisy = False
 
     def __init__(self, instance, event):
         self.instance = instance
@@ -381,6 +382,7 @@ class SimpleSpawnFactory(Factory):
     argument.
     """
 
+    noisy = False
     gtransport_class = GreenTransport
 
     def __init__(self, handler, gtransport_class=None, *args, **kwargs):
