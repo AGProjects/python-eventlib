@@ -83,7 +83,7 @@ def higher_order_send(send_func):
     return send
 
 if sys.platform == 'win32':
-    CONNECT_ERR = (errno.EINPROGRESS, errno.EALREADY, errno.EWOULDBLOCK, errno.WSAEINVAL)
+    CONNECT_ERR = (errno.EINPROGRESS, errno.EALREADY, errno.EWOULDBLOCK, errno.WSAEINVAL, errno.WSAEWOULDBLOCK)
 else:
     CONNECT_ERR = (errno.EINPROGRESS, errno.EALREADY, errno.EWOULDBLOCK)
 CONNECT_SUCCESS = (0, errno.EISCONN)
@@ -95,12 +95,16 @@ def socket_connect(descriptor, address):
         raise socket.error(err, errno.errorcode[err])
     return descriptor
 
+if sys.platform == 'win32':
+    BLOCKING_ERR = (errno.EWOULDBLOCK, errno.WSAEWOULDBLOCK)
+else:
+    BLOCKING_ERR = (errno.EWOULDBLOCK, )
 
 def socket_accept(descriptor):
     try:
         return descriptor.accept()
     except socket.error, e:
-        if e[0] == errno.EWOULDBLOCK:
+        if e[0] in BLOCKING_ERR:
             return None
         raise
 
@@ -109,7 +113,7 @@ def socket_send(descriptor, data):
     try:
         return descriptor.send(data)
     except socket.error, e:
-        if e[0] == errno.EWOULDBLOCK or e[0] == errno.ENOTCONN:
+        if e[0] in BLOCKING_ERR + errno.ENOTCONN:
             return 0
         raise
     except util.SSL.WantWriteError:
@@ -124,7 +128,7 @@ def socket_recv(descriptor, buflen):
     try:
         return descriptor.recv(buflen)
     except socket.error, e:
-        if e[0] == errno.EWOULDBLOCK:
+        if e[0] in BLOCKING_ERR:
             return None
         if e[0] in SOCKET_CLOSED:
             return ''
@@ -563,7 +567,7 @@ class GreenSSL(GreenSocket):
         try:
             return self.sock.recv(buflen)
         except socket.error, e:
-            if e[0] == errno.EWOULDBLOCK:
+            if e[0] in BLOCKING_ERR:
                 return None
             if e[0] in SOCKET_CLOSED:
                 return ''
