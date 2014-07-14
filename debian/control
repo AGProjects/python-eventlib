@@ -8,7 +8,7 @@ Standards-Version: 3.9.5
 
 Package: python-eventlib
 Architecture: all
-Depends: ${python:Depends}, ${misc:Depends}, python-greenlet, python-openssl
+Depends: ${python:Depends}, ${misc:Depends}, python-greenlet
 Description: Eventlib is a networking library written in Python.
  It achieves high scalability by using non-blocking I/O while at the same
  time retaining high programmer usability by using coroutines to make the
