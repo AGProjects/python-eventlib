@@ -4,8 +4,10 @@ for var in __socket.__all__:
 _fileobject = __socket._fileobject
 
 from eventlib.api import get_hub
-from eventlib.greenio import GreenSocket as socket, GreenSSL as _GreenSSL
+from eventlib.greenio import GreenSocket as socket
 from eventlib.greenio import socketpair, fromfd
+
+import warnings
 
 
 def gethostbyname(name):
@@ -79,19 +81,33 @@ def create_connection(address, timeout=_GLOBAL_DEFAULT_TIMEOUT):
     raise error, msg
 
 
-def ssl(sock, certificate=None, private_key=None):
-    from OpenSSL import SSL
-    context = SSL.Context(SSL.SSLv23_METHOD)
-    if certificate is not None:
-        context.use_certificate_file(certificate)
-    if private_key is not None:
-        context.use_privatekey_file(private_key)
-    context.set_verify(SSL.VERIFY_NONE, lambda *x: True)
-
-    ## TODO only do this on client sockets? how?
-    connection = SSL.Connection(context, sock)
-    connection.set_connect_state()
-    return _GreenSSL(connection)
-
-sslerror = __socket.sslerror
+try:
+    from eventlib.green import ssl as ssl_module
+except ImportError:
+    # no ssl support
+    pass
+else:
+    # some constants the SSL module exports but not in __all__
+    from eventlib.green.ssl import (RAND_add,
+                                    RAND_egd,
+                                    RAND_status,
+                                    SSL_ERROR_ZERO_RETURN,
+                                    SSL_ERROR_WANT_READ,
+                                    SSL_ERROR_WANT_WRITE,
+                                    SSL_ERROR_WANT_X509_LOOKUP,
+                                    SSL_ERROR_SYSCALL,
+                                    SSL_ERROR_SSL,
+                                    SSL_ERROR_WANT_CONNECT,
+                                    SSL_ERROR_EOF,
+                                    SSL_ERROR_INVALID_ERROR_CODE)
+    try:
+        sslerror = __socket.sslerror
+        __socket.ssl
+        def ssl(sock, certificate=None, private_key=None):
+            warnings.warn("socket.ssl() is deprecated. Use ssl.wrap_socket() instead.", DeprecationWarning, stacklevel=2)
+            return ssl_module.sslwrap_simple(sock, private_key, certificate)
+    except AttributeError:
+        # if the real socket module doesn't have the ssl method or sslerror
+        # exception, we don't emulate them
+        pass
 

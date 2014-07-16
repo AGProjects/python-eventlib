@@ -19,7 +19,6 @@
 # THE SOFTWARE.
 
 from eventlib.api import trampoline, get_hub
-from eventlib import util
 
 
 BUFFER_SIZE = 4096
@@ -30,9 +29,6 @@ import sys
 import socket
 from socket import socket as _original_socket
 import time
-
-
-from errno import EWOULDBLOCK, EAGAIN
 
 
 __all__ = ['GreenSocket', 'GreenFile', 'GreenPipe']
@@ -82,11 +78,14 @@ def higher_order_send(send_func):
         return count
     return send
 
+
 if sys.platform == 'win32':
     CONNECT_ERR = (errno.EINPROGRESS, errno.EALREADY, errno.EWOULDBLOCK, errno.WSAEINVAL, errno.WSAEWOULDBLOCK)
+    CONNECT_SUCCESS = (0, errno.EISCONN, errno.WSAEISCONN)
 else:
     CONNECT_ERR = (errno.EINPROGRESS, errno.EALREADY, errno.EWOULDBLOCK)
-CONNECT_SUCCESS = (0, errno.EISCONN)
+    CONNECT_SUCCESS = (0, errno.EISCONN)
+
 def socket_connect(descriptor, address):
     err = descriptor.connect_ex(address)
     if err in CONNECT_ERR:
@@ -104,7 +103,7 @@ def socket_accept(descriptor):
     try:
         return descriptor.accept()
     except socket.error, e:
-        if e[0] in BLOCKING_ERR:
+        if e.args[0] in BLOCKING_ERR:
             return None
         raise
 
@@ -113,14 +112,9 @@ def socket_send(descriptor, data):
     try:
         return descriptor.send(data)
     except socket.error, e:
-        if e[0] in BLOCKING_ERR + errno.ENOTCONN:
+        if e.args[0] in BLOCKING_ERR + errno.ENOTCONN:
             return 0
         raise
-    except util.SSL.WantWriteError:
-        return 0
-    except util.SSL.WantReadError:
-        trampoline(descriptor.fileno(), read=True)
-        return 0
 
 # winsock sometimes throws ENOTCONN
 SOCKET_CLOSED = (errno.ECONNRESET, errno.ENOTCONN, errno.ESHUTDOWN)
@@ -128,17 +122,9 @@ def socket_recv(descriptor, buflen):
     try:
         return descriptor.recv(buflen)
     except socket.error, e:
-        if e[0] in BLOCKING_ERR:
+        if e.args[0] in BLOCKING_ERR:
             return None
-        if e[0] in SOCKET_CLOSED:
-            return ''
-        raise
-    except util.SSL.WantReadError:
-        return None
-    except util.SSL.ZeroReturnError:
-        return ''
-    except util.SSL.SysCallError, e:
-        if e[0] == -1 or e[0] > 0:
+        if e.args[0] in SOCKET_CLOSED:
             return ''
         raise
 
@@ -147,7 +133,7 @@ def file_recv(fd, buflen):
     try:
         return fd.read(buflen)
     except IOError, e:
-        if e[0] == EAGAIN:
+        if e[0] == errno.EAGAIN:
             return None
         return ''
     except socket.error, e:
@@ -162,7 +148,7 @@ def file_send(fd, data):
         fd.flush()
         return len(data)
     except IOError, e:
-        if e[0] == EAGAIN:
+        if e[0] == errno.EAGAIN:
             return 0
     except ValueError, e:
         written = 0
@@ -536,86 +522,6 @@ class GreenPipe(GreenFile):
 
     def flush(self):
         self.fd.fd.flush()
-
-
-
-class RefCount(object):
-    """ Reference counting class only to be used with GreenSSL objects """
-    def __init__(self):
-        self._count = 1
-
-    def increment(self):
-        self._count += 1
-
-    def decrement(self):
-        self._count -= 1
-        assert self._count >= 0
-
-    def is_referenced(self):
-        return self._count > 0
-
-
-class GreenSSL(GreenSocket):
-    def __init__(self, fd, refcount = None):
-        GreenSocket.__init__(self, fd)
-        self.sock = self
-        self._refcount = refcount
-        if refcount is None:
-            self._refcount = RefCount()
-
-    def read(self, buflen=1024):
-        try:
-            return self.sock.recv(buflen)
-        except socket.error, e:
-            if e[0] in BLOCKING_ERR:
-                return None
-            if e[0] in SOCKET_CLOSED:
-                return ''
-            raise
-        except util.SSL.WantReadError:
-            return None
-        except util.SSL.ZeroReturnError:
-            return ''
-        except util.SSL.SysCallError, e:
-            if e[0] == -1 or e[0] > 0:
-                return ''
-            raise
-
-    def sendall(self, data):
-        # overriding sendall because ssl sockets behave badly when asked to
-        # send empty strings; 'normal' sockets don't have a problem
-        if not data:
-            return
-        super(GreenSSL, self).sendall(data)
-
-    def write(self, data):
-        try:
-            return self.sendall(data)
-        except util.SSL.Error, ex:
-            raise socket.sslerror(str(ex))
-
-    def server(self):
-        return self.fd.server()
-
-    def issuer(self):
-        return self.fd.issuer()
-
-    def dup(self):
-        raise NotImplementedError("Dup not supported on SSL sockets")
-
-    def makefile(self, *args, **kw):
-        self._refcount.increment()
-        return GreenFile(type(self)(self.fd, refcount = self._refcount))
-
-    makeGreenFile = makefile
-
-    def close(self):
-        self._refcount.decrement()
-        if self._refcount.is_referenced():
-            return
-        super(GreenSSL, self).close()
-
-
 
 
 def socketpair(*args):

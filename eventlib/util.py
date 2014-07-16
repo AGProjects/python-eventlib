@@ -26,22 +26,6 @@ import socket
 import errno
 import sys
 
-try:
-    from OpenSSL import SSL
-except ImportError:
-    class SSL(object):
-        class WantWriteError(object):
-            pass
-
-        class WantReadError(object):
-            pass
-
-        class ZeroReturnError(object):
-            pass
-
-        class SysCallError(object):
-            pass
-
 
 def g_log(*args):
     import sys
@@ -69,62 +53,6 @@ if sys.platform != 'win32':
 def tcp_socket():
     s = __original_socket__(socket.AF_INET, socket.SOCK_STREAM)
     return s
-
-
-try:
-    __original_ssl__ = socket.ssl
-except AttributeError:
-    __original_ssl__ = None
-
-
-def wrap_ssl(sock, certificate=None, private_key=None):
-    from OpenSSL import SSL
-    from eventlib import greenio
-    context = SSL.Context(SSL.SSLv23_METHOD)
-    if certificate is not None:
-        context.use_certificate_file(certificate)
-    if private_key is not None:
-        context.use_privatekey_file(private_key)
-    context.set_verify(SSL.VERIFY_NONE, lambda *x: True)
-
-    ## TODO only do this on client sockets? how?
-    connection = SSL.Connection(context, sock)
-    connection.set_connect_state()
-    return greenio.GreenSSL(connection)
-
-
-socket_already_wrapped = False
-def wrap_socket_with_coroutine_socket(use_thread_pool=True):
-    global socket_already_wrapped
-    if socket_already_wrapped:
-        return
-
-    def new_socket(*args, **kw):
-        from eventlib import greenio
-        return greenio.GreenSocket(__original_socket__(*args, **kw))
-    socket.socket = new_socket
-
-    socket.ssl = wrap_ssl
-
-    if use_thread_pool:
-        from eventlib import tpool
-        def new_gethostbyname(*args, **kw):
-            return tpool.execute(
-                __original_gethostbyname__, *args, **kw)
-        socket.gethostbyname = new_gethostbyname
-
-        def new_getaddrinfo(*args, **kw):
-            return tpool.execute(
-                __original_getaddrinfo__, *args, **kw)
-        socket.getaddrinfo = new_getaddrinfo
-
-    if sys.platform != 'win32':
-        def new_fromfd(*args, **kw):
-            from eventlib import greenio
-            return greenio.GreenSocket(__original_fromfd__(*args, **kw))
-        socket.fromfd = new_fromfd
-
-    socket_already_wrapped = True
 
 
 __original_fdopen__ = os.fdopen
@@ -228,19 +156,19 @@ def wrap_threading_local_with_coro_local():
     threading.local = local
 
 
-def socket_bind_and_listen(descriptor, addr=('', 0), backlog=50):
-    set_reuse_addr(descriptor)
-    descriptor.bind(addr)
-    descriptor.listen(backlog)
-    return descriptor
+def socket_bind_and_listen(sock, addr=('', 0), backlog=50):
+    set_reuse_addr(sock)
+    sock.bind(addr)
+    sock.listen(backlog)
+    return sock
 
 
-def set_reuse_addr(descriptor):
+def set_reuse_addr(sock):
     try:
-        descriptor.setsockopt(
+        sock.setsockopt(
             socket.SOL_SOCKET,
             socket.SO_REUSEADDR,
-            descriptor.getsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR) | 1,
+            sock.getsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR) | 1,
         )
     except socket.error:
         pass

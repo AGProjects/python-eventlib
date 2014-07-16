@@ -78,8 +78,10 @@ def ssl_listener(address, certificate, private_key):
     which accepts connections forever and spawns greenlets for
     each incoming connection.
     """
-    from eventlib import util
-    socket = util.wrap_ssl(util.tcp_socket(), certificate, private_key)
+    from eventlib import greenio, util
+    from eventlib.green import ssl
+    socket = greenio.GreenSocket(util.tcp_socket())
+    socket = ssl.wrap_socket(socket, keyfile=private_key, certfile=certificate, server_side=True)
     util.socket_bind_and_listen(socket, address)
     socket.is_secure = True
     return socket
