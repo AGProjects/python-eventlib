@@ -117,8 +117,12 @@ class BaseTwistedHub(object):
     # XXX: remove me from here. make functions that depend on reactor
     # XXX: hub's methods
     uses_twisted_reactor = True
+    _initialized = False
 
     def __init__(self, mainloop_greenlet):
+        if self.__class__._initialized:
+            raise RuntimeError('%s hub can only be instantiated once' % type(self).__name__)
+        self.__class__._initialized = True
         self.greenlet = mainloop_greenlet
 
     def switch(self):
@@ -217,11 +221,11 @@ class TwistedHub(BaseTwistedHub):
     installSignalHandlers = False
 
     def __init__(self):
+        g = api.Greenlet(self.run)
+        BaseTwistedHub.__init__(self, g)
         assert Hub.state==0, ('%s hub can only be instantiated once' % type(self).__name__, Hub.state)
         Hub.state = 1
         make_twisted_threadpool_daemonic() # otherwise the program would hang after the main greenlet exited
-        g = api.Greenlet(self.run)
-        BaseTwistedHub.__init__(self, g)
 
     def switch(self):
         assert api.getcurrent() is not self.greenlet, "Cannot switch from MAINLOOP to MAINLOOP"
