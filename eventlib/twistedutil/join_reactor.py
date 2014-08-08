@@ -29,6 +29,7 @@ from eventlib.api import use_hub, _threadlocal
 from eventlib.support import greenlets as greenlet
 
 use_hub(BaseTwistedHub)
-assert not hasattr(_threadlocal, 'hub')
+if hasattr(_threadlocal, 'hub'):
+    raise RuntimeError('the current thread already has a hub')
 hub = _threadlocal.hub = _threadlocal.Hub(greenlet.getcurrent())
 
