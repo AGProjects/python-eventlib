@@ -1,3 +1,10 @@
+python-eventlib (0.2.1) unstable; urgency=medium
+
+  * Prevent creation of multiple instances of BaseTwistedHub or TwistedHub
+  * Replace assert with RuntimeError
+
+ -- Saul Ibarra <saul@ag-projects.com>  Tue, 17 Feb 2015 10:53:58 +0100
+
 python-eventlib (0.2.0) unstable; urgency=medium
 
   * Remove dependency on pyOpenSSL
