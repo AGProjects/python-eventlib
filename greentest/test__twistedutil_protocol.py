@@ -210,16 +210,17 @@ class TestTLSError(unittest.TestCase):
     def test_server_connectionMade_never_called(self):
         # trigger case when protocol instance is created,
         # but it's connectionMade is never called
-        from gnutls.interfaces.twisted import X509Credentials
+        from gnutls.interfaces.twisted import TLSContext, X509Credentials
         from gnutls.errors import GNUTLSError
         cred = X509Credentials(None, None)
+        ctx = TLSContext(cred)
         ev = event()
         def handle(conn):
             ev.send("handle must not be called")
-        s = reactor.listenTLS(0, pr.SpawnFactory(handle, LineOnlyReceiverTransport), cred)
+        s = reactor.listenTLS(0, pr.SpawnFactory(handle, LineOnlyReceiverTransport), ctx)
         creator = pr.GreenClientCreator(reactor, LineOnlyReceiverTransport)
         try:
-            conn = creator.connectTLS('127.0.0.1', s.getHost().port, cred)
+            conn = creator.connectTLS('127.0.0.1', s.getHost().port, ctx)
         except GNUTLSError:
             pass
         assert ev.poll() is None, repr(ev.poll())

@@ -21,7 +21,7 @@
 
 from twisted.internet import reactor
 from twisted.names.srvconnect import SRVConnector
-from gnutls.interfaces.twisted import X509Credentials
+from gnutls.interfaces.twisted import TLSContext, X509Credentials
 
 from eventlet.twistedutil.protocol import GreenClientCreator
 from eventlet.twistedutil.protocols.basic import LineOnlyReceiverTransport
@@ -34,9 +34,10 @@ class NoisySRVConnector(SRVConnector):
         return host, port
 
 cred = X509Credentials(None, None)
+ctx = TLSContext(cred)
 creator = GreenClientCreator(reactor, LineOnlyReceiverTransport)
 conn = creator.connectSRV('msrps', 'ag-projects.com',
-                          connectFuncName='connectTLS', connectFuncArgs=(cred,),
+                          connectFuncName='connectTLS', connectFuncArgs=(ctx,),
                           ConnectorClass=NoisySRVConnector)
 
 request = """MSRP 49fh AUTH
