@@ -1,3 +1,9 @@
+python-eventlib (0.2.2) unstable; urgency=medium
+
+  * Adapt to changes in python-gnutls 3.0
+
+ -- Saul Ibarra <saul@ag-projects.com>  Fri, 19 Feb 2016 17:23:41 +0100
+
 python-eventlib (0.2.1) unstable; urgency=medium
 
   * Prevent creation of multiple instances of BaseTwistedHub or TwistedHub
