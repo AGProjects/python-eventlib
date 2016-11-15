@@ -20,12 +20,6 @@ def test_basic():
         print "test_basic ..."
 
     socket.RAND_status()
-    try:
-        socket.RAND_egd(1)
-    except TypeError:
-        pass
-    else:
-        print "didn't raise TypeError"
     socket.RAND_add("this is a random string", 75.0)
 
     try:

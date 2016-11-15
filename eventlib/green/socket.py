@@ -89,7 +89,6 @@ except ImportError:
 else:
     # some constants the SSL module exports but not in __all__
     from eventlib.green.ssl import (RAND_add,
-                                    RAND_egd,
                                     RAND_status,
                                     SSL_ERROR_ZERO_RETURN,
                                     SSL_ERROR_WANT_READ,
