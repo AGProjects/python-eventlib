@@ -1,3 +1,10 @@
+python-eventlib (0.2.3) unstable; urgency=medium
+
+  * Fixed to support openssl-1.1, compiled without EGD support
+  * Updated debian standards version
+
+ -- Dan Pascu <dan@ag-projects.com>  Tue, 15 Nov 2016 19:41:36 +0200
+
 python-eventlib (0.2.2) unstable; urgency=medium
 
   * Adapt to changes in python-gnutls 3.0
