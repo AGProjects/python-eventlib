@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python2
 
 from greentest import exit_unless_25; exit_unless_25()
 

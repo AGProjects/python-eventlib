@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/python2
+
 # @file test_saranwrap.py
 # @brief Test cases for saranwrap.
 #
