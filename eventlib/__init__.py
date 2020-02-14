@@ -17,5 +17,5 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-version_info = (0, 2, 4)
+version_info = (0, 2, 5)
 __version__ = '%s.%s.%s' % version_info
