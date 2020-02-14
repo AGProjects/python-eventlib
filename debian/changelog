@@ -1,5 +1,6 @@
 python-eventlib (0.2.5) unstable; urgency=medium
 
+  * Simplified keeping version number
   * Remove shebang line from module
   * Explicitly use python2 in shebang lines
   * Refactored setup.py for PEP-8 compliance
@@ -8,7 +9,7 @@ python-eventlib (0.2.5) unstable; urgency=medium
   * Increased debian standards version to 4.5.0
   * Updated license file
 
- -- Dan Pascu <dan@ag-projects.com>  Fri, 14 Feb 2020 11:04:43 +0200
+ -- Dan Pascu <dan@ag-projects.com>  Fri, 14 Feb 2020 11:31:50 +0200
 
 python-eventlib (0.2.4) unstable; urgency=medium
 
