@@ -1,7 +1,26 @@
-Migrate library to Python version >= 3.8
+Python3 migration
+-----------------
 
-The following modules must be proven to work, if no test is available in
-greentest/ and examples/ folders, a new test script must be provided.
+Existing software must work with Python version 3.8 or newer.
+
+No new functionality is required.
+
+Currently, eventlib works with Python version 2.7, it is bug free for +5
+years. Projects available in the open domain that use python-eventlib:
+
+ * python-xcaplib 
+ * python-msrplib 
+ * python-sipsimple 
+ * blink-qt 
+ * sylkserver
+
+
+Deliverables
+------------
+
+The following modules must be proven to work with Python 3.8.  If no test is
+available in greentest/ and examples/ folders, a new test script must be
+created.
 
 from eventlib import api, coros, proc
 from eventlib.api import timeout, sleep
@@ -16,4 +35,10 @@ from eventlib.support import greenlets as greenlet
 from eventlib.twistedutil import callInGreenThread, deferToGreenThread, block_on, join_reactor
 from eventlib.twistedutil.protocol import GreenTransportBase, ValueQueue, GreenClientCreator, SpawnFactory
 from eventlib.util import tcp_socket, set_reuse_addr
+
+
+Patches
+-------
+
+Fork the project on github and provide the link for the modified branch(es).
 
