@@ -26,7 +26,7 @@ import unittest
 from twisted.internet.error import DNSLookupError
 from twisted.internet import defer
 from twisted.python.failure import Failure
-from eventlet.twistedutil import block_on
+from eventlib.twistedutil import block_on
 
 class Test(unittest.TestCase):
 

@@ -24,7 +24,7 @@ import sys
 import unittest
 import weakref
 import time
-from eventlet.api import sleep, timeout, TimeoutError, _SilentException
+from eventlib.api import sleep, timeout, TimeoutError, _SilentException
 DELAY = 0.01
 
 class Error(Exception):

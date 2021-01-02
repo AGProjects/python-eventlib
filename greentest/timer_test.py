@@ -21,7 +21,7 @@
 
 from unittest import TestCase, main
 
-from eventlet import api, timer
+from eventlib import api, timer
 
 class TestTimer(TestCase):
     mode = 'static'

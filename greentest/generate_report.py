@@ -26,7 +26,7 @@ import os
 import sqlite3
 import glob
 
-REPO_URL = 'http://bitbucket.org/denis/eventlet'
+REPO_URL = 'http://bitbucket.org/denis/eventlib'
 
 hubs_order = ['poll', 'selects', 'libevent', 'libev', 'twistedr/selectreactor', 'twistedr/pollreactor', 'twistedr/epollreactor']
 

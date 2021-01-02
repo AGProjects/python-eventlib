@@ -19,14 +19,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-"""Test than modules in eventlet.green package are indeed green.
+"""Test than modules in eventlib.green package are indeed green.
 To do that spawn a green server and then access it using a green socket.
 If either operation blocked the whole script would block and timeout.
 """
 import unittest
 from greentest import test_support
-from eventlet.green import urllib2, BaseHTTPServer
-from eventlet.api import spawn, kill
+from eventlib.green import urllib2, BaseHTTPServer
+from eventlib.api import spawn, kill
 
 port = 18341
 

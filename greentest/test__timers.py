@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 
 import unittest
-from eventlet.api import call_after, spawn, sleep
+from eventlib.api import call_after, spawn, sleep
 
 class test(unittest.TestCase):
 

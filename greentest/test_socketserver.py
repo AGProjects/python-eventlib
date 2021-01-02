@@ -6,12 +6,12 @@ from greentest.test_support import (verbose, verify, TESTFN, TestSkipped,
                                reap_children)
 test_support.requires('network')
 
-from eventlet.green.SocketServer import *
-from eventlet.green import socket
+from eventlib.green.SocketServer import *
+from eventlib.green import socket
 import errno
-from eventlet.green import select
-from eventlet.green import time
-from eventlet.green import threading
+from eventlib.green import select
+from eventlib.green import time
+from eventlib.green import threading
 import sys
 import os
 import unittest

@@ -3,10 +3,10 @@
 import unittest
 from greentest import test_support
 
-from eventlet.green import socket
-from eventlet.green import select
-from eventlet.green import time
-from eventlet.green import thread, threading
+from eventlib.green import socket
+from eventlib.green import select
+from eventlib.green import time
+from eventlib.green import thread, threading
 import Queue
 import sys
 import array
@@ -888,7 +888,7 @@ class TCPTimeoutTest(SocketTCPTest):
             pass
         def alarm_handler(signal, frame):
             raise Alarm
-        from eventlet.api import get_hub
+        from eventlib.api import get_hub
         if hasattr(get_hub(), 'signal'):
             myalarm = get_hub().signal(signal.SIGALRM, alarm_handler)
         else:

@@ -21,12 +21,12 @@
 
 """Spawn multiple workers and collect their results.
 
-Demonstrates how to use eventlet.green package and proc module.
+Demonstrates how to use eventlib.green package and proc module.
 """
-from eventlet import proc
-from eventlet.green import socket
+from eventlib import proc
+from eventlib.green import socket
 
-# this example works with both standard eventlet hubs and with twisted-based hub
+# this example works with both standard eventlib hubs and with twisted-based hub
 # uncomment the following line to use twisted hub
 #from twisted.internet import reactor
 
@@ -38,7 +38,7 @@ def geturl(url):
     c.send('GET /\r\n\r\n')
     return c.recv(1024)
 
-urls = ['www.google.com', 'www.yandex.ru', 'www.python.org']
+urls = ['www.google.com', 'www.yandex.ru', 'www.python.org', 'ag-projects.com', 'sylkserver.com']
 jobs = [proc.spawn(geturl, x) for x in urls]
 print 'spawned %s jobs' % len(jobs)
 

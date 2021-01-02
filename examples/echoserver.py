@@ -32,7 +32,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 """
 
-from eventlet import api
+from eventlib import api
 
 def handle_socket(reader, writer):
     print "client connected"

@@ -26,13 +26,13 @@ exit_unless_twisted()
 import unittest
 from twisted.internet.error import ConnectionDone
 
-import eventlet.twistedutil.protocol as pr
-from eventlet.twistedutil.protocols.basic import LineOnlyReceiverTransport
-from eventlet.api import spawn, sleep, with_timeout, call_after
-from eventlet.coros import event
+import eventlib.twistedutil.protocol as pr
+from eventlib.twistedutil.protocols.basic import LineOnlyReceiverTransport
+from eventlib.api import spawn, sleep, with_timeout, call_after
+from eventlib.coros import event
 
 try:
-    from eventlet.green import socket
+    from eventlib.green import socket
 except SyntaxError:
     socket = None
 

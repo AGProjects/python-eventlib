@@ -4,8 +4,8 @@
 
 from greentest.test_support import verbose
 import random
-from eventlet.green import thread
-from eventlet.green import time
+from eventlib.green import thread
+from eventlib.green import time
 
 mutex = thread.allocate_lock()
 rmutex = thread.allocate_lock() # for calls to random

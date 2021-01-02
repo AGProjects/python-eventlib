@@ -1,11 +1,11 @@
-"""This is a simple example of running a wsgi application with eventlet.
+"""This is a simple example of running a wsgi application with eventlib.
 For a more fully-featured server which supports multiple processes,
 multiple threads, and graceful code reloading, see:
 
 http://pypi.python.org/pypi/Spawning/
 """
 
-from eventlet import api, wsgi
+from eventlib import api, wsgi
 
 
 def hello_world(env, start_response):

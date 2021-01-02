@@ -19,7 +19,7 @@ from unittest import TestCase, main
 import random
 import uuid
 
-from eventlet import coros, api, tpool
+from eventlib import coros, api, tpool
 
 r = random.WichmannHill()
 _g_debug = False

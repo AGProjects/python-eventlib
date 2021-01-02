@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 
 from unittest import TestCase, main
-from eventlet import coros, api
+from eventlib import coros, api
 
 class TestEvent(TestCase):
     mode = 'static'

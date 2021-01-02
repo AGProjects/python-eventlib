@@ -23,8 +23,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 from unittest import TestCase, main
-from eventlet import api, coros
-from eventlet import db_pool
+from eventlib import api, coros
+from eventlib import db_pool
 
 class DBTester(object):
     def setUp(self):

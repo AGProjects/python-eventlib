@@ -23,8 +23,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-from eventlet import api, saranwrap
-from eventlet.pool import Pool
+from eventlib import api, saranwrap
+from eventlib.pool import Pool
 
 import os
 import sys

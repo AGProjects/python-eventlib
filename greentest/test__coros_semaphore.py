@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 
 import unittest
-from eventlet import api, coros
+from eventlib import api, coros
 from greentest import LimitedTestCase
 
 class TestSemaphore(LimitedTestCase):

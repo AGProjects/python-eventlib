@@ -7,10 +7,10 @@ import urlparse
 import unittest
 import hashlib
 from greentest import test_support
-from eventlet.green import threading
-from eventlet.green import socket
-from eventlet.green import urllib2
-from eventlet.green import BaseHTTPServer
+from eventlib.green import threading
+from eventlib.green import socket
+from eventlib.green import urllib2
+from eventlib.green import BaseHTTPServer
 
 
 

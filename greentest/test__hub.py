@@ -21,8 +21,8 @@
 
 import unittest
 import time
-from eventlet import api
-from eventlet.green import socket
+from eventlib import api
+from eventlib.green import socket
 
 DELAY = 0.1
 

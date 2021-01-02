@@ -23,9 +23,9 @@ import cgi
 import os
 from unittest import TestCase, main
 
-from eventlet import api
-from eventlet import wsgi
-from eventlet import processes
+from eventlib import api
+from eventlib import wsgi
+from eventlib import processes
 
 from greentest import find_command
 
@@ -262,7 +262,7 @@ class TestHttpd(TestCase):
         self.assert_(chunks > 1)
 
     def test_012_ssl_server(self):
-        from eventlet import httpc
+        from eventlib import httpc
         def wsgi_app(environ, start_response):
             start_response('200 OK', {})
             return [environ['wsgi.input'].read()]
@@ -278,7 +278,7 @@ class TestHttpd(TestCase):
         self.assertEquals(result, 'abc')
 
     def test_013_empty_return(self):
-        from eventlet import httpc
+        from eventlib import httpc
         def wsgi_app(environ, start_response):
             start_response("200 OK", [])
             return [""]

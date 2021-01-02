@@ -18,7 +18,7 @@
 # THE SOFTWARE.
 
 from unittest import TestCase, main
-from eventlet import api
+from eventlib import api
 import socket
 
 # TODO try and reuse unit tests from within Python itself

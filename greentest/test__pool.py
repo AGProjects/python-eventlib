@@ -1,4 +1,4 @@
-from eventlet import pool, coros, api
+from eventlib import pool, coros, api
 from greentest import LimitedTestCase
 from unittest import main
 
@@ -124,7 +124,7 @@ class TestCoroutinePool(LimitedTestCase):
         # The premise is that a coroutine in a Pool tries to get a token out
         # of a token pool but times out before getting the token.  We verify
         # that neither pool is adversely affected by this situation.
-        from eventlet import pools
+        from eventlib import pools
         pool = self.klass(min_size=1, max_size=1)
         tp = pools.TokenPool(max_size=1)
         token = tp.get()  # empty pool

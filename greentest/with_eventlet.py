@@ -35,7 +35,7 @@ def setup_hub(hub, reactor):
     if reactor is not None:
         import_reactor(reactor).install()
     if hub is not None:
-        from eventlet.api import use_hub
+        from eventlib.api import use_hub
         try:
             use_hub(hub)
         except ImportError, ex:
@@ -51,7 +51,7 @@ def setup_hub(hub, reactor):
 def parse_args():
     hub = None
     reactor = None
-    del sys.argv[0] # kill with_eventlet.py
+    del sys.argv[0] # kill with_eventlib.py
     if sys.argv[0]=='--hub':
         del sys.argv[0]
         hub = sys.argv[0]
@@ -65,7 +65,7 @@ def parse_args():
 if __name__=='__main__':
     hub, reactor = parse_args()
     setup_hub(hub, reactor)
-    from eventlet.api import get_hub
+    from eventlib.api import get_hub
     hub = get_hub() # set up the hub now
     print '===HUB=%r' % hub
     if 'twisted.internet.reactor' in sys.modules:

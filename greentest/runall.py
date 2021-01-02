@@ -46,8 +46,8 @@ def w(s):
     sys.stderr.write("%s\n" % (s, ))
 
 def enum_hubs():
-    from eventlet.api import use_hub
-    hubs = glob('../eventlet/hubs/*.py')
+    from eventlib.api import use_hub
+    hubs = glob('../eventlib/hubs/*.py')
     hubs = [os.path.basename(h)[:-3] for h in hubs]
     hubs = [h for h in hubs if h[:1]!='_']
     hubs = set(hubs)

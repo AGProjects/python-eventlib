@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 
 import unittest
-from eventlet.api import sleep, spawn, kill, with_timeout, TimeoutError
+from eventlib.api import sleep, spawn, kill, with_timeout, TimeoutError
 
 DELAY = 0.1
 

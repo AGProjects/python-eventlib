@@ -5,8 +5,8 @@ use of a blocking function.
 """
 from twisted.internet import ssl
 from twisted.internet.error import ConnectionClosed
-from eventlet.twistedutil.protocol import GreenClientCreator
-from eventlet.twistedutil.protocols.basic import LineOnlyReceiverTransport
+from eventlib.twistedutil.protocol import GreenClientCreator
+from eventlib.twistedutil.protocols.basic import LineOnlyReceiverTransport
 from twisted.internet import reactor
 
 # read from TCP connection

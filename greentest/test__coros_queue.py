@@ -1,6 +1,6 @@
 from greentest import LimitedTestCase
 from unittest import main
-from eventlet import api, coros
+from eventlib import api, coros
 
 def waiting(queue):
     try:

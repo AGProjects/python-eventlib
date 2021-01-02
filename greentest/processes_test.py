@@ -22,7 +22,7 @@
 import sys
 from unittest import TestCase, main
 
-from eventlet import processes
+from eventlib import processes
 
 class TestEchoPool(TestCase):
     def setUp(self):

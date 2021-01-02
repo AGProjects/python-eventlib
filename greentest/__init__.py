@@ -30,7 +30,7 @@ def exit_disabled():
     sys.exit(disabled_marker)
 
 def exit_unless_twisted():
-    from eventlet.api import get_hub
+    from eventlib.api import get_hub
     if 'Twisted' not in type(get_hub()).__name__:
         exit_disabled()
 
@@ -41,7 +41,7 @@ def exit_unless_25():
 class LimitedTestCase(unittest.TestCase):
 
     def setUp(self):
-        from eventlet import api
+        from eventlib import api
         self.timer = api.exc_after(1, RuntimeError('test is taking too long'))
 
     def tearDown(self):

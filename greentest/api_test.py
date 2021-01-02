@@ -23,9 +23,9 @@ import os
 import os.path
 from unittest import TestCase, main
 
-from eventlet import api
-from eventlet import greenio
-from eventlet import util
+from eventlib import api
+from eventlib import greenio
+from eventlib import util
 
 
 def check_hub():
@@ -201,7 +201,7 @@ class TestApi(TestCase):
             wrap_wfile.write('hi')
             evt.send('sent via event')
 
-        from eventlet import coros
+        from eventlib import coros
         evt = coros.event()
         api.spawn(sender, evt)
         try:

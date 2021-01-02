@@ -8,8 +8,8 @@ class ThreadingLocalTest(unittest.TestCase):
         # of a threading.local derived class, the per-thread dictionary
         # is created but not correctly set on the object.
         # The first member set may be bogus.
-        from eventlet.green import threading
-        from eventlet.green import time
+        from eventlib.green import threading
+        from eventlib.green import time
         class Local(threading.local):
             def __init__(self):
                 time.sleep(0.01)
@@ -34,7 +34,7 @@ def test_main():
     suite = DocTestSuite('_threading_local')
 
     try:
-        from eventlet.green.thread import _local
+        from eventlib.green.thread import _local
     except ImportError:
         pass
     else:

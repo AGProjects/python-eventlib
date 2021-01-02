@@ -23,8 +23,8 @@ from twisted.internet import reactor
 from twisted.names.srvconnect import SRVConnector
 from gnutls.interfaces.twisted import TLSContext, X509Credentials
 
-from eventlet.twistedutil.protocol import GreenClientCreator
-from eventlet.twistedutil.protocols.basic import LineOnlyReceiverTransport
+from eventlib.twistedutil.protocol import GreenClientCreator
+from eventlib.twistedutil.protocols.basic import LineOnlyReceiverTransport
 
 class NoisySRVConnector(SRVConnector):
 

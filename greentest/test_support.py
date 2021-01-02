@@ -488,12 +488,12 @@ def run_doctest(module, verbosity=None):
 # Threading support to prevent reporting refleaks when running regrtest.py -R
 
 def threading_setup():
-    from eventlet.green import threading
+    from eventlib.green import threading
     return len(threading._active), len(threading._limbo)
 
 def threading_cleanup(num_active, num_limbo):
-    from eventlet.green import threading
-    from eventlet.green import time
+    from eventlib.green import threading
+    from eventlib.green import time
 
     _MAX_COUNT = 10
     count = 0

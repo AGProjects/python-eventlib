@@ -21,10 +21,10 @@
 
 from unittest import TestCase, main
 
-from eventlet import api
-from eventlet import httpd
-from eventlet import processes
-from eventlet import util
+from eventlib import api
+from eventlib import httpd
+from eventlib import processes
+from eventlib import util
 
 from greentest import find_command
 

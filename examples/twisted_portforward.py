@@ -25,9 +25,9 @@
 USAGE: twisted_portforward.py local_port remote_host remote_port"""
 import sys
 from twisted.internet import reactor
-from eventlet.twistedutil import join_reactor
-from eventlet.twistedutil.protocol import GreenClientCreator, SpawnFactory, UnbufferedTransport
-from eventlet import proc
+from eventlib.twistedutil import join_reactor
+from eventlib.twistedutil.protocol import GreenClientCreator, SpawnFactory, UnbufferedTransport
+from eventlib import proc
 
 def forward(source, dest):
     try:

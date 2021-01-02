@@ -20,9 +20,9 @@
 # THE SOFTWARE.
 from unittest import TestCase, main
 
-from eventlet import api
-from eventlet import coros
-from eventlet import pools
+from eventlib import api
+from eventlib import coros
+from eventlib import pools
 
 class IntPool(pools.Pool):
     def create(self):

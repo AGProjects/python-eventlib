@@ -2,13 +2,13 @@ import os
 import re
 import doctest
 import unittest
-import eventlet
+import eventlib
 
-base = os.path.dirname(eventlet.__file__)
+base = os.path.dirname(eventlib.__file__)
 modules = set()
 
 for path, dirs, files in os.walk(base):
-    package = 'eventlet' + path.replace(base, '').replace('/', '.')
+    package = 'eventlib' + path.replace(base, '').replace('/', '.')
     modules.add((package, os.path.join(path, '__init__.py')))
     for f in files:
         module = None

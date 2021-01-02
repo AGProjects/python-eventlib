@@ -4,9 +4,9 @@ import greentest.test_support
 from greentest.test_support import verbose
 import random
 import sys
-from eventlet.green import threading
-from eventlet.green import thread
-from eventlet.green import time
+from eventlib.green import threading
+from eventlib.green import thread
+from eventlib.green import time
 import unittest
 
 # A trivial mutable counter.

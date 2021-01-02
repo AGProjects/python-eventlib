@@ -2,7 +2,7 @@
 
 import sys
 from greentest import test_support
-from eventlet.green import socket
+from eventlib.green import socket
 import errno
 import unittest
 
@@ -14,7 +14,7 @@ skip_expected = not (test_support.is_resource_enabled('network') and
 def test_basic():
     test_support.requires('network')
 
-    from eventlet.green import urllib
+    from eventlib.green import urllib
 
     if test_support.verbose:
         print "test_basic ..."
@@ -73,7 +73,7 @@ def test_rude_shutdown():
     if test_support.verbose:
         print "test_rude_shutdown ..."
 
-    from eventlet.green import threading
+    from eventlib.green import threading
 
     # Some random port to connect to.
     PORT = [9934]
@@ -117,7 +117,7 @@ def test_rude_shutdown__write():
     if test_support.verbose:
         print "test_rude_shutdown__variant ..."
 
-    from eventlet.green import threading
+    from eventlib.green import threading
 
     # Some random port to connect to.
     PORT = [9934]

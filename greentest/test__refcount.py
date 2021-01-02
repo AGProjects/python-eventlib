@@ -24,9 +24,9 @@ are not leaked by the hub.
 """
 #import sys
 import unittest
-from eventlet.green import socket
-from eventlet.green.thread import start_new_thread
-from eventlet.green.time import sleep
+from eventlib.green import socket
+from eventlib.green.thread import start_new_thread
+from eventlib.green.time import sleep
 import weakref
 import gc
 

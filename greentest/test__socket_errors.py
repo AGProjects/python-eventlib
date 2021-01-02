@@ -20,10 +20,10 @@
 # THE SOFTWARE.
 
 import unittest
-from eventlet import api
+from eventlib import api
 
 if hasattr(api._threadlocal, 'hub'):
-    from eventlet.green import socket
+    from eventlib.green import socket
 else:
     import socket
 

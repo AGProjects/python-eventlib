@@ -22,9 +22,9 @@
 import cgi
 from unittest import TestCase, main
 
-from eventlet import api
-from eventlet import httpc
-from eventlet import wsgi
+from eventlib import api
+from eventlib import httpc
+from eventlib import wsgi
 
 import time
 try:

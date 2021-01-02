@@ -20,8 +20,8 @@
 # THE SOFTWARE.
 
 import unittest
-from eventlet.coros import event
-from eventlet.api import spawn, sleep, exc_after, with_timeout
+from eventlib.coros import event
+from eventlib.api import spawn, sleep, exc_after, with_timeout
 from greentest import LimitedTestCase
 
 DELAY= 0.01

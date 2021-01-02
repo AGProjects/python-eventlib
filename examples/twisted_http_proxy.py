@@ -23,10 +23,10 @@
 It even works for some pages.
 
 Demonstrates how to
- * plug in eventlet into a twisted application (join_reactor)
+ * plug in eventlib into a twisted application (join_reactor)
  * call green functions from places where blocking calls
    are not allowed (deferToGreenThread)
- * use eventlet.green package which provides [some of] the
+ * use eventlib.green package which provides [some of] the
    standard library modules that don't block other greenlets.
 """
 import re
@@ -34,9 +34,9 @@ from twisted.internet.protocol import Factory
 from twisted.internet import reactor
 from twisted.protocols import basic
 
-from eventlet.twistedutil import deferToGreenThread
-from eventlet.twistedutil import join_reactor
-from eventlet.green import httplib
+from eventlib.twistedutil import deferToGreenThread
+from eventlib.twistedutil import join_reactor
+from eventlib.green import httplib
 
 class LineOnlyReceiver(basic.LineOnlyReceiver):
 
