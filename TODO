@@ -1,12 +1,18 @@
 Python3 migration
 -----------------
 
-Existing software must work with Python version 3.8 or newer.
+2021-01-02
+
+Existing software must work with Python version 3.8 or newer.  The target
+operating system is Debian Linux Sid (the current unstable version).
 
 No new functionality is required.
 
-Currently, eventlib works with Python version 2.7, it is bug free for +5
-years. Projects available in the open domain that use python-eventlib:
+Currently, eventlib works with Python version 2 and it is bug free for +5
+years.  The current stable environment where the software has been tested is
+Debian Buster 10 using Python version 2.7
+
+Projects available in the open domain that use python-eventlib on Debian Buster:
 
  * python-xcaplib 
  * python-msrplib 
@@ -36,9 +42,13 @@ from eventlib.twistedutil import callInGreenThread, deferToGreenThread, block_on
 from eventlib.twistedutil.protocol import GreenTransportBase, ValueQueue, GreenClientCreator, SpawnFactory
 from eventlib.util import tcp_socket, set_reuse_addr
 
+The target operating system is Debian Linux Sid (the current unstable version).
+
 
 Patches
 -------
 
 Fork the project on github and provide the link for the modified branch(es).
+
+Or send a patch by email to support@ag-projects.com
 
