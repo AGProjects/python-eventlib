@@ -1,20 +1,19 @@
 Migrate library to Python version >= 3.8
 
-The following modules must be proven to work:
+The following modules must be proven to work, if no test is available in
+greentest/ and examples/ folders, a new test script must be provided.
 
-from eventlib import api, coros, proc, timeout, sleep
+from eventlib import api, coros, proc
+from eventlib.api import timeout, sleep
 from eventlib.coros import event, queue
-from eventlib.green import socket
-from eventlib.green import select
 from eventlib.green.httplib import BadStatusLine
-from eventlib.green.threading import RLock
+from eventlib.green import socket, select, ssl, httplib, urllib2
 from eventlib.green.socket import gethostbyname
-from eventlib.twistedutil import callInGreenThread, deferToGreenThread, block_on
-from eventlib.twistedutil import join_reactor
-from eventlib.twistedutil.protocol import GreenTransportBase, ValueQueue
-from eventlib.support import greenlets as greenlet
-from eventlib.coros import queue
+from eventlib.green.threading import RLock
 from eventlib.greenio import GreenSocket
 from eventlib.proc import spawn, ProcExit
+from eventlib.support import greenlets as greenlet
+from eventlib.twistedutil import callInGreenThread, deferToGreenThread, block_on, join_reactor
+from eventlib.twistedutil.protocol import GreenTransportBase, ValueQueue, GreenClientCreator, SpawnFactory
 from eventlib.util import tcp_socket, set_reuse_addr
 
